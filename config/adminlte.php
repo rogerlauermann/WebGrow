@@ -312,11 +312,19 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text' => 'Home',
+            'url' => 'home',
+            'icon' => 'fas fa-fw fa-home',
+        ],
+        [
+            'text'  => 'DHT',
+            'route' => 'DHT',
+            'icon'  => 'fas fa-fw fa-thermometer-three-quarters',
+        ],
+        [
+            'text'  => 'LC',
+            'route' => 'LC',
+            'icon'  => 'fas fa-fw fa-cog',
         ],
         ['header' => 'account_settings'],
         [
