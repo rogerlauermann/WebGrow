@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GrowDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/store-grow-data', 'App\Http\Controllers\GrowDataController@store');
+
+Route::post('/store-soil-data', 'App\Http\Controllers\SoilDataController@store');
+
+Route::post('/store-watering-data', 'App\Http\Controllers\WateringDataController@store');
