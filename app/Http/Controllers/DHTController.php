@@ -12,17 +12,21 @@ class DHTController extends Controller
 {
     public function index(Request $request)
     {
-        // Get the latest timestamp from TemperatureData
-        $latestTemperatureTimestamp = TemperatureData::latest('timestamp')->value('timestamp');
+        $dataRequest = $request->all();
 
-        // Calculate the timestamp for 24 hours ago
-        $last24Hours = Carbon::parse($latestTemperatureTimestamp)->subHours(1);
+        $oldDateIni = $request->input('date_ini');
+        $oldDateEnd = $request->input('date_end');
 
-        // Fetch the data from the last 24 hours for TemperatureData and HumidityData
-        $t = TemperatureData::where('timestamp', '>=', $last24Hours)
+        $dataEnd = $dataRequest['date_end'] ?? TemperatureData::latest('timestamp')->value('timestamp');
+
+        $dataIni = $dataRequest['date_ini'] ?? Carbon::parse($dataEnd)->subHours(1)->toDateTimeString();
+
+        $t = TemperatureData::where('timestamp', '>=', Carbon::parse($dataIni))
+        ->where('timestamp', '<=', Carbon::parse($dataEnd))
             ->pluck('value', 'timestamp');
 
-        $h = HumidityData::where('timestamp', '>=', $last24Hours)
+        $h = HumidityData::where('timestamp', '>=', Carbon::parse($dataIni))
+        ->where('timestamp', '<=', Carbon::parse($dataEnd))
             ->pluck('value', 'timestamp');
 
         $chart = new DHTChart;
@@ -37,6 +41,6 @@ class DHTController extends Controller
             ->backgroundColor('rgba(0, 0, 255, 0)')
             ->color('blue');
 
-        return view('DHT', compact('chart'));
+        return view('DHT', compact('chart', 'oldDateIni', 'oldDateEnd'));
     }
 }

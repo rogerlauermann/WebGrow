@@ -22,5 +22,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/DHT', [App\Http\Controllers\DHTController::class, 'index'])->name('DHT');
+Route::post('/DHT', [App\Http\Controllers\DHTController::class, 'index']);
 
 Route::get('/LC', [App\Http\Controllers\LCController::class, 'index'])->name('LC');
+Route::post('/LC', [App\Http\Controllers\LCController::class, 'index']);
